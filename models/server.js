@@ -7,8 +7,13 @@ class Server {
     this.PORT = 3000
     this.app = express()
 
+    this.path = {
+        pet: '/api/pets'
+    }
+
     this.db()
     this.middlewares()
+    this.routes()
   }
 
   async db () {
@@ -18,6 +23,11 @@ class Server {
   middlewares () {
     this.app.use(cors())
     this.app.use(express.json())
+  }
+
+  routes() {
+    this.app.use(this.path.pet, require('../routes/pets'))
+
   }
 
   listen () {
